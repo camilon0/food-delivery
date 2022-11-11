@@ -1,0 +1,10 @@
+export const userTypes = {
+  USER_REGISTER: "USER_REGISTER",
+  USER_LOGIN: "USER_lOGIN",
+  USER_LOGOUT: "USER_LOGOUT",
+};
+
+export const restaurantesTypes = {
+  RESTAURANTES_GET: "RESTAURANTES_GET",
+  RESTAURANTES_ADD: "RESTAURANTES_ADD",
+};
