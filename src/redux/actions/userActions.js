@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -98,5 +99,35 @@ export const actionLogoutAsync = () => {
 const actionLogoutSync = () => {
   return {
     type: userTypes.USER_LOGOUT,
+  };
+};
+
+export const actionLoginGoogleOrFacebook = (provider) => {
+  return (dispatch) => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const { displayName, accessToken, photoURL, phoneNumber, email } =
+          result.user;
+        console.log(result.user);
+        dispatch(
+          actionLoginSync({
+            email,
+            name: displayName,
+            accessToken,
+            photoURL,
+            phoneNumber,
+            error: false,
+          })
+        );
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        console.log(error);
+        console.log(errorCode);
+        console.log(errorMessage);
+        dispatch(actionLoginSync({ email, error: true, errorMessage }));
+      });
   };
 };

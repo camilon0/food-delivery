@@ -16,6 +16,11 @@ export const restaurantesReducer = (state = initialState, action) => {
         ...state,
         restaurantes: [...state.restaurantes, action.payload],
       };
+    case restaurantesTypes.RESTAURANTES_FILTERED:
+      return {
+        ...state,
+        restaurantes: action.payload.restaurantes,
+      };
     default:
       return state;
   }

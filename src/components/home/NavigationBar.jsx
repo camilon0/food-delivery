@@ -10,6 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import logo from "./assets/Hamburger.png";
 
+import { useForm } from "react-hook-form";
+import {
+  actionFilterAsync,
+  actionGetRestaurantesAsync,
+} from "../../redux/actions/restaurantesActions";
 import { actionLogoutAsync } from "../../redux/actions/userActions";
 
 const imgStyles = {
@@ -30,9 +35,21 @@ const activeNavLinkStyles = {
 
 const NavigationBar = ({ isAutentication }) => {
   const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
   const { photoURL } = useSelector((store) => store.user);
   const onCloseSession = () => {
     dispatch(actionLogoutAsync());
+  };
+  const onSearch = (data) => {
+    const searchParam = data.search;
+    console.log(searchParam);
+    dispatch(actionFilterAsync(searchParam));
+  };
+
+  const restoreRestaurantes = ({ target }) => {
+    if (target.value.trim() === "") {
+      dispatch(actionGetRestaurantesAsync());
+    }
   };
   return (
     <div>
@@ -73,14 +90,22 @@ const NavigationBar = ({ isAutentication }) => {
                       + Restaurantes
                     </NavLink>
                   </Nav>
-                  <Form className="d-flex m-3">
+                  <Form
+                    className="d-flex m-3"
+                    onSubmit={handleSubmit(onSearch)}
+                  >
                     <Form.Control
                       type="search"
+                      {...register("search", { required: true })}
                       placeholder="Search"
                       className="me-2"
                       aria-label="Search"
+                      onChange={restoreRestaurantes}
+                      // onChange={onChangeSearch}
                     />
-                    <Button variant="outline-success">Search</Button>
+                    <Button type="submit" variant="outline-success">
+                      Search
+                    </Button>
                   </Form>
                   <OverlayTrigger
                     placement="bottom"
