@@ -56,18 +56,7 @@ const Login = () => {
         <div className="login">
           <img src={Logo} alt="Logo" />
           <h2>Sing in</h2>
-          <span>
-            Login or create an account with your phone number to start ordering
-          </span>
-          <div className="login__input">
-            <img src={Phone} alt="Phone" />
-            <input type="number" />
-          </div>
-        </div>
-        <div className="login__btn">
-          <Link to={"/register"}>
-            <button type="button">Login</button>
-          </Link>
+          <span>Login or create an account to start ordering</span>
         </div>
       </div>
       <div className="p-5">
