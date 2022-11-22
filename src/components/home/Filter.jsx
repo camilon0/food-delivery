@@ -6,7 +6,7 @@ import {
   actionGetRestaurantesAsync,
 } from "../../redux/actions/restaurantesActions";
 import { category } from "../../services/dataLogin";
-
+import "./style.scss";
 const FilterButtons = () => {
   const dispatch = useDispatch();
   const onFiltered = (searchValue) => {

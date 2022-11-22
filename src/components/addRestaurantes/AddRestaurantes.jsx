@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import { actionAddRestauranteAsync } from "../../redux/actions/restaurantesActions";
 import { fileUpLoad } from "../../services/fileUpLoad";
-
+import "../home/style.scss";
 const inputList = [
   {
     label: "Nombre",
@@ -38,20 +38,16 @@ const inputList = [
 
 const category = [
   {
-    label: "Fast food",
+    label: "Fast Food",
     value: 1,
   },
   {
-    label: "Pizzeria",
+    label: "Pizza",
     value: 2,
   },
   {
-    label: "Italiano",
+    label: "Coffee",
     value: 3,
-  },
-  {
-    label: "Coreano",
-    value: 4,
   },
 ];
 

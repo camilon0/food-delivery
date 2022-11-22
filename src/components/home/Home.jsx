@@ -2,19 +2,30 @@ import React, { useEffect } from "react";
 import { Card } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { useDispatch, useSelector } from "react-redux";
-import { actionGetRestaurantesAsync } from "../../redux/actions/restaurantesActions";
-import buttonAmarillo from "./assets/All.png";
+import { useNavigate } from "react-router-dom";
+import {
+  actionFilterRestaurantesAsync,
+  actionGetRestaurantesAsync,
+} from "../../redux/actions/restaurantesActions";
+import { category } from "../../services/dataLogin";
+
 import deliveryAdress from "./assets/DeliveryAdress.png";
-import buttonBlanco from "./assets/sheet.png";
+
 import "./style.scss";
 //import stars from "../home/assets/Stars.png";
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { restaurantes } = useSelector((store) => store.restaurantesStore);
 
   useEffect(() => {
     dispatch(actionGetRestaurantesAsync());
   }, [dispatch]);
+
+  const onFiltered = (searchValue) => {
+    const searchParam = "category";
+    dispatch(actionFilterRestaurantesAsync(searchParam, searchValue));
+  };
 
   return (
     <>
@@ -46,27 +57,52 @@ const Home = () => {
           </Carousel.Item>
         </Carousel>
 
+        <div>
+          {" "}
+          <h3>Restaurants and Caffe</h3>{" "}
+        </div>
         <div className="containerButtonCategory">
-          <button>All</button>
-          <button>Fast food</button>
-          <button>Pizza</button>
-          <button>Japonesa</button>
+          <button
+            onClick={() => {
+              dispatch(actionGetRestaurantesAsync());
+            }}
+          >
+            All
+          </button>
+          {category.map((item) => (
+            <button
+              key={item.value}
+              onClick={() => {
+                onFiltered(item.label);
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
 
         <div className="cards d-flex flex-wrap justify-content-left gap-3">
           {restaurantes && restaurantes.length ? (
             restaurantes.map((restaurante, index) => (
-              <Card key={index} style={{ width: "18rem" }}>
+              <Card
+                border="light"
+                className="cardBody"
+                key={index}
+                onClick={() => {
+                  navigate(`/restaurante/${restaurante.name}`);
+                }}
+                style={{ width: "20rem", objectFit: "cover" }}
+              >
                 <Card.Img
+                  className="imgRestaurantes"
                   variant="top"
                   src={restaurante.image}
                   style={{ height: "150px", objectFit: "cover" }}
                 />
                 <Card.Body>
                   <Card.Title>{restaurante.name}</Card.Title>
-
                   <Card.Text>
-                    Work time:{restaurante.time} {<br></br>} ⭐⭐⭐⭐⭐{" "}
+                    Work time: {restaurante.time} {<br></br>} ⭐⭐⭐⭐⭐{" "}
                     {<br></br>} Before you 4$
                   </Card.Text>
                 </Card.Body>

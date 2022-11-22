@@ -1,0 +1,22 @@
+.logo {
+  display: block;
+  margin: auto;
+  height: 15vh;
+  padding: 10px;
+}
+.card {
+  flex-direction: row;
+}
+.imgRest {
+  clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
+  border-radius: 1em;
+  width: 11em;
+}
+@media (max-width: 600px) {
+  .logo {
+    display: block;
+    margin: auto;
+    height: 12vh;
+    padding: 10px;
+  }
+}

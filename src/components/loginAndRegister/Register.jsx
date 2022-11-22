@@ -72,30 +72,10 @@ const Register = () => {
 
   return (
     <>
-      <div>
-        <div className="register">
-          <h2 className="register__title">Create account</h2>
-
-          <div className="register__input">
-            <input type="text" placeholder="NAME" />
-          </div>
-          <div className="register__input">
-            <input type="email" placeholder="EMAIL" />
-          </div>
-          <div className="register__input">
-            <input type="password" placeholder="PASSWORD" />
-          </div>
-        </div>
-        <div className="register__btn">
-          <Link to={"/"}>
-            <button type="button">Login</button>
-          </Link>
-        </div>
-      </div>
       <div className="p-5">
-        <h1>Crear una nueva cuenta</h1>
+        <h1>Create a new account</h1>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <FloatingLabel label="Nombre" className="mb-3">
+          <FloatingLabel label="Name" className="mb-3">
             <Form.Control
               type="text"
               placeholder="Enter your name"
@@ -131,10 +111,10 @@ const Register = () => {
             <Form.Control type="file" {...register("photo")} size="sm" />
           </FloatingLabel>
           <Button variant="warning" type="submit" className="mb-3">
-            Registrarse
+            Sign in
           </Button>
         </Form>
-        <Link to="/">¿Ya tiene una cuenta?</Link>
+        <Link to="/">Already have an account?</Link>
       </div>
     </>
   );

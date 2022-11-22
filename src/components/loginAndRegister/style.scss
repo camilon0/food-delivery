@@ -34,6 +34,7 @@
       left: 16px;
       top: 740px;
       border-radius: 10px;
+      text-align: center;
     }
   }
 }
@@ -63,20 +64,11 @@
     display: flex;
     justify-content: center;
     height: 44px;
-
-    button {
-      background-color: #ffe031;
-      height: 44px;
-      width: 358px;
-      left: 16px;
-      top: 740px;
-      border-radius: 10px;
-    }
   }
 }
 
-@media (max-width: 600px) {
-  button {
-    margin-top: 60%;
-  }
-}
+// @media (max-width: 600px) {
+//   button {
+//     margin-top: 60%;
+//   }
+// }

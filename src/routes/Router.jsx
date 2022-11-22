@@ -2,11 +2,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NavigationBar from "../components/home/NavigationBar";
+import Navigation from "../components/home/Navigation";
+//import NavigationBar from "../components/home/NavigationBar";
 import Login from "../components/loginAndRegister/Login";
 import Register from "../components/loginAndRegister/Register";
 import { auth } from "../Firebase/firebaseConfig";
-import { actionLoginAsync } from "../redux/actions/userActions";
+//import { actionLoginAsync } from "../redux/actions/userActions";
 import DashboardRouter from "./DashboardRouter";
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
@@ -60,11 +61,12 @@ const Router = () => {
           <Route path="/Register" element={<Register />} />
           <Route path="/" element={<Login />} />
         </Route>
+
         <Route element={<PrivateRouter isAutentication={isLoggedIn} />}>
           <Route path="/*" element={<DashboardRouter />} />
         </Route>
       </Routes>
-      <NavigationBar isAutentication={isLoggedIn} />
+      <Navigation isAutentication={isLoggedIn} />
     </BrowserRouter>
   );
 };

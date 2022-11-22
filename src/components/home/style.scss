@@ -1,8 +1,12 @@
 .cards {
   width: 100%;
-  height: 200px;
+  height: 320px;
   overflow: scroll;
 }
+.cardBody {
+  flex-direction: row;
+}
+
 .imgDelivery {
   width: 250px;
   height: 45px;
@@ -17,25 +21,52 @@
 }
 .containerButtonCategory {
   display: flex;
-
   width: 100%;
-  height: 100px;
+  height: 50px;
   justify-content: center;
   gap: 5px;
 }
 button {
-  background-color: #ffe031;
+  background-color: #f2f2f2;
   height: 44px;
   width: 100px;
   border-radius: 10px;
+  border: #f2f2f2;
+  color: #6c6c6c;
 }
-
+button:hover {
+  background-color: #ffe031;
+}
+h3 {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #414141;
+  font-style: normal;
+}
+.imgRestaurantes {
+  clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
+  border-radius: 1em;
+  width: 12em;
+  height: 100%;
+  object-fit: cover;
+}
 @media (max-width: 600px) {
-  button {
-    margin-top: 0;
+  .containerButtonCategory {
+    display: flex;
+    width: 100%;
+
+    //justify-content: center;
+    gap: 5px;
   }
   .imgCarrusel {
     width: 100%;
-    height: 15vh;
+    height: 20vh;
+  }
+  .cards {
+    height: 275px;
   }
 }

@@ -60,7 +60,7 @@ const Login = () => {
         </div>
       </div>
       <div className="p-5">
-        <h1>Iniciar Sesión</h1>
+        <h1></h1>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FloatingLabel label="Email address" className="mb-3">
             <Form.Control
@@ -82,10 +82,10 @@ const Login = () => {
           <p>{errors.password?.message}</p>
 
           <Button variant="warning" type="submit" className="mt-3 mb-3">
-            Iniciar Sesión
+            Login
           </Button>
         </Form>
-        <Link to="/Register">¿Desea crear una cuenta?</Link>
+        <Link to="/Register">Would you like to create an account?</Link>
         <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
           {loginProvider.map((provider, index) => (
             <img

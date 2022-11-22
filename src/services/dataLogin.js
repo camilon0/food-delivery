@@ -12,3 +12,17 @@ export const loginProvider = [
     provider: facebook,
   },
 ];
+export const category = [
+  {
+    label: "Fast Food",
+    value: 1,
+  },
+  {
+    label: "Pizza",
+    value: 2,
+  },
+  {
+    label: "Coffee",
+    value: 3,
+  },
+];
