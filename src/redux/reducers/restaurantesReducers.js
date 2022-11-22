@@ -1,4 +1,4 @@
-import { restaurantesTypes } from "../types/restaurantesTypes";
+import { foodTypes, restaurantesTypes } from "../types/restaurantesTypes";
 
 const restaurantesState = {
   restaurantes: [],
@@ -25,6 +25,27 @@ export const restaurantesReducer = (state = restaurantesState, action) => {
       return {
         ...state,
         restaurantes: [...state.restaurantes, action.payload],
+      };
+
+    default:
+      return state;
+  }
+};
+const foodState = {
+  food: [],
+};
+
+export const foodReducer = (state = foodState, action) => {
+  switch (action.type) {
+    case foodTypes.FOOD_GET:
+      return {
+        ...state,
+        food: action.payload.food,
+      };
+    case foodTypes.FOOD_FILTERED:
+      return {
+        ...state,
+        food: action.payload.food,
       };
 
     default:

@@ -1,8 +1,9 @@
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { dataBase } from "../../Firebase/firebaseConfig";
-import { restaurantesTypes } from "../types/restaurantesTypes";
+import { foodTypes, restaurantesTypes } from "../types/restaurantesTypes";
 
 const collectionName = "restaurantes";
+const collectionFood = "food";
 
 export const actionGetRestaurantesAsync = () => {
   return async (dispatch) => {
@@ -84,29 +85,66 @@ const actionFilterRestaurantesSync = (restaurantes) => {
     },
   };
 };
+///////////////////////////////FOOD //////////////////////////
+export const actionGetFoodAsync = () => {
+  return async (dispatch) => {
+    const foodCollection = collection(dataBase, collectionFood);
+    const querySnapshot = await getDocs(foodCollection);
+    const food = [];
+    try {
+      querySnapshot.forEach((doc) => {
+        food.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(actionGetFoodSync(food));
+    }
+  };
+};
+const actionGetFoodSync = (food) => {
+  return {
+    type: foodTypes.FOOD_GET,
+    payload: {
+      food: food,
+    },
+  };
+};
 
-// export const actionFilterAsync = (searchParam) => {
-//   return async (dispatch) => {
-//     const restaurantesCollection = collection(dataBase, collectionName);
-//     const querySnapshot = await getDocs(restaurantesCollection);
-//     const restaurantes = [];
-//     try {
-//       querySnapshot.forEach((doc) => {
-//         // doc.data() is never undefined for query doc snapshots
-//         restaurantes.push({
-//           id: doc.id,
-//           ...doc.data(),
-//         });
-//         //   console.log(doc.id, " => ", doc.data());
-//       });
+export const actionFilterAsync = (searchParam) => {
+  return async (dispatch) => {
+    const foodCollection = collection(dataBase, collectionFood);
+    const querySnapshot = await getDocs(foodCollection);
+    const food = [];
+    try {
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        food.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+        //   console.log(doc.id, " => ", doc.data());
+      });
 
-//       const filterdRestaurantes = restaurantes.filter((item) =>
-//         item.name.toLowerCase().includes(searchParam.toLowerCase())
-//       );
-//       dispatch(actionFilterRestaurantesSync(filterdRestaurantes));
-//     } catch (error) {
-//       console.error(error);
-//       dispatch(actionFilterRestaurantesSync([]));
-//     }
-//   };
-// };
+      const filterdFood = food.filter((item) =>
+        item.name.toLowerCase().includes(searchParam.toLowerCase())
+      );
+      dispatch(actionFilterFoodSync(filterdFood));
+    } catch (error) {
+      console.error(error);
+      dispatch(actionFilterFoodSync([]));
+    }
+  };
+};
+
+const actionFilterFoodSync = (food) => {
+  return {
+    type: foodTypes.FOOD_FILTERED,
+    payload: {
+      food: food,
+    },
+  };
+};

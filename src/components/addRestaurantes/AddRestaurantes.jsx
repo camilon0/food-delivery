@@ -3,6 +3,7 @@ import React from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { actionAddRestauranteAsync } from "../../redux/actions/restaurantesActions";
 import { fileUpLoad } from "../../services/fileUpLoad";
@@ -63,7 +64,7 @@ const schema = yup.object({
 
 const AddRestaurantes = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -81,7 +82,9 @@ const AddRestaurantes = () => {
       time: data.time,
       image: image,
     };
+
     console.log(newRestaurante);
+    navigate(`/home`);
     dispatch(actionAddRestauranteAsync(newRestaurante));
   };
   return (
@@ -133,7 +136,7 @@ const AddRestaurantes = () => {
         })}
 
         <Button variant="warning" type="submit" className="mb-3">
-          Agregar Restaurante
+          Add
         </Button>
       </Form>
     </div>

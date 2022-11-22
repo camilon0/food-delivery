@@ -1,6 +1,6 @@
 export const fileUpLoad = async (file) => {
-  const cloudName = "dspyfujx0";
-  const uploadPreset = "test-cloudinary";
+  const cloudName = "dtgenzmiw";
+  const uploadPreset = "delivery-project";
 
   const urlCloudinary = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
@@ -24,5 +24,3 @@ export const fileUpLoad = async (file) => {
     return null;
   }
 };
-
-

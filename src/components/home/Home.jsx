@@ -85,7 +85,7 @@ const Home = () => {
           {restaurantes && restaurantes.length ? (
             restaurantes.map((restaurante, index) => (
               <Card
-                border="light"
+                border="white"
                 className="cardBody"
                 key={index}
                 onClick={() => {
@@ -102,8 +102,8 @@ const Home = () => {
                 <Card.Body>
                   <Card.Title>{restaurante.name}</Card.Title>
                   <Card.Text>
-                    Work time: {restaurante.time} {<br></br>} ⭐⭐⭐⭐⭐{" "}
-                    {<br></br>} Before you 4$
+                    Work time:{<br></br>} {restaurante.time} {<br></br>}{" "}
+                    ⭐⭐⭐⭐⭐ {<br></br>} Before you 4$
                   </Card.Text>
                 </Card.Body>
               </Card>

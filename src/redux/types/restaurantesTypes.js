@@ -4,3 +4,7 @@ export const restaurantesTypes = {
   RESTAURANTES_FILTERED: "RESTAURANTES_FILTERED",
   RESTAURANT_SINGLE_GET: "RESTAURANT_SINGLE_GET",
 };
+export const foodTypes = {
+  FOOD_GET: "FOOD_GET",
+  FOOD_FILTERED: "FOOD_FILTERED",
+};

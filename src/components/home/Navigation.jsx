@@ -10,6 +10,7 @@ import Modal from "react-bootstrap/Modal";
 import Nav from "react-bootstrap/Nav";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { actionLogoutAsync } from "../../redux/actions/userActions";
 import Home from "./assets/Home.png";
 import photoURL from "./assets/photoURL.png";
@@ -33,11 +34,16 @@ const Navigation = ({ isAutentication }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const navigate = useNavigate();
   return (
     <Offcanvas.Body>
       {isAutentication ? (
-        <Nav fill variant="tabs" defaultActiveKey="/home">
+        <Nav
+          fill
+          variant="tabs"
+          defaultActiveKey="/home"
+          className="navFooter gap-3 m-3"
+        >
           <Nav.Item>
             <Nav.Link href="/home">
               <img className="" src={Home} alt="Home" />
@@ -63,6 +69,17 @@ const Navigation = ({ isAutentication }) => {
               </Modal.Header>
               <Modal.Body>
                 <Image src={photoURL} alt="go" style={imgStyles} />
+                <Button
+                  className="m-3"
+                  variant="warning"
+                  onClick={() => {
+                    navigate(`/addRestaurantes`);
+                    setShow(false);
+                  }}
+                  style={{ height: "60px" }}
+                >
+                  Add restaurant
+                </Button>
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="warning" onClick={onCloseSession}>

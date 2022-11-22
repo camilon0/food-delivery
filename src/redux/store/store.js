@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { restaurantesReducer } from "../reducers/restaurantesReducers";
+import {
+  foodReducer,
+  restaurantesReducer,
+} from "../reducers/restaurantesReducers";
 import { userReducer } from "../reducers/userReducers";
 
 const reducer = {
   user: userReducer,
   restaurantesStore: restaurantesReducer,
+  foodStore: foodReducer,
 };
 
 const store = configureStore({
