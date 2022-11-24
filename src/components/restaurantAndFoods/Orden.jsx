@@ -1,11 +1,7 @@
 import React from "react";
 import orden from "./assets/Order.png";
 const Orden = () => {
-  return (
-    <div>
-      <img src={orden} alt="sd" />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Orden;

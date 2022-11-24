@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,8 +12,10 @@ const Food = () => {
   }, []);
 
   const [infoFood, setInfoFood] = useState();
+  const user = useSelector((store) => store.userStore);
 
   const specific = useSelector((store) => store.foodStore);
+
   const getFoodInfo = () => {
     const foodData = specific.food.slice();
     const tempFood = foodData.find((food) => food.name === name);
@@ -31,18 +34,36 @@ const Food = () => {
       setCantidadFood(decremento);
     }
   };
+  const { handleSubmit } = useForm();
 
+  const onSubmit = async () => {
+    const newOrden = {
+      user: user.email,
+      name: infoFood.name,
+      id: infoFood.id,
+      image: infoFood.image,
+      quantity: cantidadFood,
+      price: cantidadFood * infoFood.price,
+    };
+    //dispatch(actionAddOrderAsync(newOrden));
+    console.log(newOrden);
+  };
   return (
     <>
       {infoFood ? (
         <>
           <div>
-            <Card
-              className="d-flex flex-wrap gap-3 m-3"
-              style={{ height: "100%", objectFit: "cover" }}
-            >
-              <Card.Img src={infoFood.image} alt="food" />
-              <Card.Body>
+            <Card className="cardFoodDetails d-flex flex-wrap gap-3 m-3">
+              <Card.Img
+                className="imgFoodOrden"
+                src={infoFood.image}
+                alt="food"
+                style={{ height: "150px", objectFit: "cover" }}
+              />
+              <Card.Body
+                className=""
+                style={{ height: "290px", objectFit: "cover" }}
+              >
                 <Card.Title>{infoFood.name}</Card.Title>
 
                 <Card.Text>
@@ -79,15 +100,22 @@ const Food = () => {
                       +
                     </button>
                   </nav>
-                  <nav
-                    className="price"
-                    onClick={() => {
-                      navigate(`/orden/${infoFood.name}`);
-                    }}
-                  >
-                    <div>add</div>
-                    <span>{cantidadFood * infoFood.price}</span>
-                  </nav>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="">
+                      <span>Note</span>
+                      <input></input>
+                    </div>
+                    <nav
+                      className="price"
+                      onClick={() => {
+                        navigate(`/orden/${infoFood.name}`);
+                      }}
+                    >
+                      <div>add</div>
+                      <span>{cantidadFood * infoFood.price}</span>
+                    </nav>
+                    <button type="submit">Orden</button>
+                  </form>
                 </Card.Text>
               </Card.Body>
             </Card>

@@ -43,7 +43,7 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
   const dispatch = useDispatch();
-  const { error, errorMessage } = useSelector((store) => store.user);
+  const { error, errorMessage } = useSelector((store) => store.userStore);
 
   const onSubmit = async (data) => {
     const photoURL = await onUpLoadImage(data.photo[0]);

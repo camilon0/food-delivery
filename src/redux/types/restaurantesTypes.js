@@ -7,4 +7,5 @@ export const restaurantesTypes = {
 export const foodTypes = {
   FOOD_GET: "FOOD_GET",
   FOOD_FILTERED: "FOOD_FILTERED",
+  FOOD_ADD: "FOOD_ADD",
 };

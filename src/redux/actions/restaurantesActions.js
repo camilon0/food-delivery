@@ -148,3 +148,43 @@ const actionFilterFoodSync = (food) => {
     },
   };
 };
+export const actionAddFoodAsync = (food) => {
+  return async (dispatch) => {
+    try {
+      const foodsCollection = collection(dataBase, collectionFood);
+      const docs = await addDoc(foodsCollection, food);
+      dispatch(actionAddFoodSync({ id: docs.id, ...food }));
+    } catch (error) {
+      console.log(error);
+      dispatch(actionAddFoodSync({}));
+    }
+  };
+};
+
+const actionAddFoodSync = (food) => {
+  return {
+    type: foodTypes.FOOD_ADD,
+    payload: food,
+  };
+};
+export const actionFilterFoodsAsync = (searchParam, searchValue) => {
+  return async (dispatch) => {
+    const foodsCollection = collection(dataBase, collectionFood);
+    const q = query(foodsCollection, where(searchParam, "==", searchValue));
+    const foods = [];
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        foods.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(actionFilterFoodSync(foods));
+    }
+  };
+};
+/////////////////////////////////////ORDEN////////////////////////

@@ -7,6 +7,7 @@ import Navigation from "../components/home/Navigation";
 import Login from "../components/loginAndRegister/Login";
 import Register from "../components/loginAndRegister/Register";
 import { auth } from "../Firebase/firebaseConfig";
+import { actionLoginAsync } from "../redux/actions/userActions";
 //import { actionLoginAsync } from "../redux/actions/userActions";
 import DashboardRouter from "./DashboardRouter";
 import PrivateRouter from "./PrivateRouter";
@@ -22,27 +23,27 @@ const Router = () => {
     onAuthStateChanged(auth, (user) => {
       if (user?.uid) {
         setIsLoggedIn(true);
-        // if (Object.entries(userStore).length === 0) {
-        //   const {
-        //     displayName,
-        //     email,
-        //     phoneNumber,
-        //     accessToken,
-        //     photoURL,
-        //     uid,
-        //   } = user.auth.currentUser;
-        //   dispatch(
-        //     actionLoginAsync({
-        //       name: displayName,
-        //       email,
-        //       accessToken,
-        //       phoneNumber,
-        //       avatar: photoURL,
-        //       uid,
-        //       error: false,
-        //     })
-        //   );
-        // }
+        if (Object.entries(userStore).length === 0) {
+          const {
+            displayName,
+            email,
+            phoneNumber,
+            accessToken,
+            photoURL,
+            uid,
+          } = user.auth.currentUser;
+          dispatch(
+            actionLoginAsync({
+              name: displayName,
+              email,
+              accessToken,
+              phoneNumber,
+              avatar: photoURL,
+              uid,
+              error: false,
+            })
+          );
+        }
       } else {
         setIsLoggedIn(false);
       }

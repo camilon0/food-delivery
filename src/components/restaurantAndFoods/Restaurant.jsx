@@ -50,7 +50,7 @@ const Restaurant = () => {
                 src={infoRestaurante.image}
                 style={{ height: "150px", objectFit: "cover" }}
               />
-              <Card.Body className="cardBody">
+              <Card.Body className="cardBody gap-1 m-1">
                 <Card.Title>{infoRestaurante.name}</Card.Title>
                 <Card.Text>
                   {infoRestaurante.description}

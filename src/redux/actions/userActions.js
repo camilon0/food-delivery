@@ -106,15 +106,16 @@ export const actionLoginGoogleOrFacebook = (provider) => {
   return (dispatch) => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        const { displayName, accessToken, photoURL, phoneNumber, email } =
-          result.user;
+        const user = result.user;
+        const { displayName, accessToken, photoURL, phoneNumber } =
+          user.auth.currentUser;
         console.log(result.user);
         dispatch(
           actionLoginSync({
-            email,
+            email: user.email,
             name: displayName,
             accessToken,
-            photoURL,
+            avatar: photoURL,
             phoneNumber,
             error: false,
           })

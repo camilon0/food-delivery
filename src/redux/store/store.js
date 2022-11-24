@@ -6,7 +6,7 @@ import {
 import { userReducer } from "../reducers/userReducers";
 
 const reducer = {
-  user: userReducer,
+  userStore: userReducer,
   restaurantesStore: restaurantesReducer,
   foodStore: foodReducer,
 };

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
   Button,
+  Card,
   Dropdown,
   Form,
   InputGroup,
@@ -39,7 +40,7 @@ const Search = () => {
       <>
         <form
           className="m-3 "
-          style={{ height: "300px", objectFit: "cover" }}
+          style={{ objectFit: "cover" }}
           onSubmit={handleSubmit(onSearch)}
         >
           <button
@@ -57,33 +58,35 @@ const Search = () => {
             {...register("search", { required: true })}
             onChange={renderFood}
           />
+          <Card className="search__food">
+            {food && food.length ? (
+              food.map((food, index) => (
+                <Card.Body
+                  className="bodyCard"
+                  key={index}
+                  onClick={() => {
+                    navigate(`/food/${food.name}`);
+                  }}
+                >
+                  <Card.Img
+                    src={food.image}
+                    alt="food"
+                    style={{
+                      height: "200px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <span>{food.name}</span>
+                  <br></br>
+                  <span>price: {food.price}</span>
+                </Card.Body>
+              ))
+            ) : (
+              <></>
+            )}
+          </Card>
         </form>
       </>
-      <section className="search__food">
-        {food && food.length ? (
-          food.map((food, index) => (
-            <div
-              key={index}
-              onClick={() => {
-                navigate(`/food/${food.name}`);
-              }}
-            >
-              <img
-                src={food.image}
-                alt="food"
-                style={{
-                  height: "300px",
-                  objectFit: "cover",
-                }}
-              />
-              <span>{food.name}</span>
-              <span>price: {food.price}</span>
-            </div>
-          ))
-        ) : (
-          <></>
-        )}
-      </section>
     </>
   );
 };
