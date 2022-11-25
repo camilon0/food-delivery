@@ -72,13 +72,13 @@ const Search = () => {
                     src={food.image}
                     alt="food"
                     style={{
-                      height: "200px",
+                      height: "250px",
                       objectFit: "cover",
                     }}
                   />
-                  <span>{food.name}</span>
+                  <Card.Title>{food.name}</Card.Title>
                   <br></br>
-                  <span>price: {food.price}</span>
+                  <Card.Text>Precio: {food.price}$</Card.Text>
                 </Card.Body>
               ))
             ) : (

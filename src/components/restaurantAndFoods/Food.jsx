@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import { Button, Card } from "react-bootstrap";
+
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -12,7 +12,6 @@ const Food = () => {
   }, []);
 
   const [infoFood, setInfoFood] = useState();
-  const user = useSelector((store) => store.userStore);
 
   const specific = useSelector((store) => store.foodStore);
 
@@ -34,20 +33,7 @@ const Food = () => {
       setCantidadFood(decremento);
     }
   };
-  const { handleSubmit } = useForm();
 
-  const onSubmit = async () => {
-    const newOrden = {
-      user: user.email,
-      name: infoFood.name,
-      id: infoFood.id,
-      image: infoFood.image,
-      quantity: cantidadFood,
-      price: cantidadFood * infoFood.price,
-    };
-    //dispatch(actionAddOrderAsync(newOrden));
-    console.log(newOrden);
-  };
   return (
     <>
       {infoFood ? (
@@ -100,23 +86,17 @@ const Food = () => {
                       +
                     </button>
                   </nav>
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="">
-                      <span>Note</span>
-                      <input></input>
-                    </div>
-                    <nav
-                      className="price"
-                      onClick={() => {
-                        navigate(`/orden/${infoFood.name}`);
-                      }}
-                    >
-                      <div>add</div>
-                      <span>{cantidadFood * infoFood.price}</span>
-                    </nav>
-                    <button type="submit">Orden</button>
-                  </form>
+                  <Button
+                    variant="warning"
+                    //className="price"
+                    onClick={() => {
+                      navigate(`/addOrden/${infoFood.name}`);
+                    }}
+                  >
+                    add
+                  </Button>
                 </Card.Text>
+                <span>{cantidadFood * infoFood.price}$</span>
               </Card.Body>
             </Card>
           </div>

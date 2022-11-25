@@ -1,6 +1,18 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { dataBase } from "../../Firebase/firebaseConfig";
-import { foodTypes, restaurantesTypes } from "../types/restaurantesTypes";
+import {
+  foodTypes,
+  ordenTypes,
+  restaurantesTypes,
+} from "../types/restaurantesTypes";
 
 const collectionName = "restaurantes";
 const collectionFood = "food";
@@ -188,3 +200,102 @@ export const actionFilterFoodsAsync = (searchParam, searchValue) => {
   };
 };
 /////////////////////////////////////ORDEN////////////////////////
+const collectionOrden = "orden";
+
+export const actionGetOrdenAsync = () => {
+  return async (dispatch) => {
+    const ordenCollection = collection(dataBase, collectionOrden);
+    const querySnapshot = await getDocs(ordenCollection);
+    const orden = [];
+    try {
+      querySnapshot.forEach((doc) => {
+        orden.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(actionGetOrdenSync(orden));
+    }
+  };
+};
+
+const actionGetOrdenSync = (orden) => {
+  return {
+    type: ordenTypes.ORDEN_GET,
+    payload: {
+      orden: orden,
+    },
+  };
+};
+
+export const actionAddOrdenAsync = (orden) => {
+  return async (dispatch) => {
+    try {
+      const ordenCollection = collection(dataBase, collectionOrden);
+      const docs = await addDoc(ordenCollection, orden);
+      dispatch(actionAddOrdenSync({ id: docs.id, ...orden }));
+    } catch (error) {
+      console.log(error);
+      dispatch(actionAddOrdenSync({}));
+    }
+  };
+};
+
+const actionAddOrdenSync = (orden) => {
+  return {
+    type: ordenTypes.ORDEN_ADD,
+    payload: orden,
+  };
+};
+//////////////////////////deleted restaurant///////////////
+export const actionDeleteRestaurantAsync = (restaurante) => {
+  return async (dispatch) => {
+    const restauranteRef = doc(dataBase, collectionName, restaurante.id);
+    try {
+      await deleteDoc(restauranteRef);
+      dispatch(actionDeleteRestauranteSync(restaurante));
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        actionDeleteRestauranteSync({
+          error: true,
+          errorMessage: error.message,
+        })
+      );
+    }
+  };
+};
+const actionDeleteRestauranteSync = (restaurant) => {
+  return {
+    type: restaurantesTypes.RESTAURANTES_DELETE,
+    payload: { id: restaurant.id },
+  };
+};
+
+///////////////////////////deleted foods////////////////////
+export const actionDeleteFoodAsync = (food) => {
+  return async (dispatch) => {
+    const foodRef = doc(dataBase, collectionName, food.id);
+    try {
+      await deleteDoc(foodRef);
+      dispatch(actionDeleteFoodSync(food));
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        actionDeleteFoodSync({
+          error: true,
+          errorMessage: error.message,
+        })
+      );
+    }
+  };
+};
+const actionDeleteFoodSync = (food) => {
+  return {
+    type: foodTypes.FOOD_DELETE,
+    payload: { id: food.id },
+  };
+};

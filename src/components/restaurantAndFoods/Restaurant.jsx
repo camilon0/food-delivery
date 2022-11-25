@@ -42,7 +42,7 @@ const Restaurant = () => {
           <div>
             <Card
               border="light"
-              className="d-flex justify-content-left gap-3 m-3"
+              className="d-flex gap-3 m-3"
               style={{ objectFit: "cover" }}
             >
               <Card.Img
@@ -60,7 +60,7 @@ const Restaurant = () => {
             </Card>
             <Card
               border=""
-              className="cardFood d-flex flex-wrap gap-3 m-3"
+              className="cardFood  d-flex gap-3 m-3"
               style={{ objectFit: "cover" }}
             >
               {foodFiltered.map((plato, index) => (

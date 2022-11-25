@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="d-flex flex-wrap gap-3 m-3">
+      <div className="home d-flex flex-wrap gap-3 m-3">
         <span>
           <img className="imgDelivery" src={deliveryAdress} alt="deliver" />
         </span>

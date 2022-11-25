@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Image,
-  Offcanvas,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Button, Image, Offcanvas } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import Nav from "react-bootstrap/Nav";
-import { useForm } from "react-hook-form";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionLogoutAsync } from "../../redux/actions/userActions";
 import Home from "./assets/Home.png";
-import photoURL from "./assets/photoURL.png";
 
 import Reload from "./assets/Reload.png";
 import Search from "./assets/Search.png";
@@ -24,17 +17,7 @@ const imgStyles = {
 };
 
 const Navigation = ({ isAutentication }) => {
-  const [admin, setAdmin] = useState(true);
-
-  const adminLogged = () => {
-    if (user.email === "camilo10.97@hotmail.com") {
-      setAdmin(false);
-    }
-  };
-
-  useEffect(() => {
-    adminLogged();
-  }, []);
+  const user = useSelector((store) => store.userStore);
 
   const dispatch = useDispatch();
   //const { register, handleSubmit } = useForm();
@@ -43,9 +26,6 @@ const Navigation = ({ isAutentication }) => {
     dispatch(actionLogoutAsync());
     setShow(false);
   };
-  const user = useSelector((store) => store.userStore);
-  console.log(user.name);
-  console.log(user.avatar);
 
   const [show, setShow] = useState(false);
 
@@ -69,7 +49,7 @@ const Navigation = ({ isAutentication }) => {
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link href="/orders">
+                <Nav.Link href="/orden">
                   <img className="" src={Reload} alt="Reload" />
                 </Nav.Link>
               </Nav.Item>
@@ -78,6 +58,7 @@ const Navigation = ({ isAutentication }) => {
                   <img className="" src={Search} alt="Search" />
                 </Nav.Link>
               </Nav.Item>
+
               <Nav.Item>
                 <Button variant="light" onClick={handleShow}>
                   <img className="" src={User} alt="User" />
@@ -98,11 +79,11 @@ const Navigation = ({ isAutentication }) => {
                       variant="warning"
                       onClick={() => {
                         navigate(`/profile`);
+                        setShow(false);
                       }}
                       style={{ height: "60px" }}
-                      disabled={admin}
                     >
-                      Admin
+                      Perfil
                     </Button>
                   </Modal.Body>
                   <Modal.Footer>
